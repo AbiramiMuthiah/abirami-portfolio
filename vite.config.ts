@@ -5,6 +5,8 @@ import { createServer } from "./server";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  root: "client",
+
   server: {
     host: "::",
     port: 8080,
@@ -13,10 +15,14 @@ export default defineConfig(({ mode }) => ({
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
   },
+
   build: {
-    outDir: "dist/spa",
+    outDir: "../dist",
+    emptyOutDir: true,
   },
+
   plugins: [react(), expressPlugin()],
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
@@ -28,11 +34,11 @@ export default defineConfig(({ mode }) => ({
 function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
+    apply: "serve",
+
     configureServer(server) {
       const app = createServer();
 
-      // Add Express app as middleware to Vite dev server
       server.middlewares.use(app);
     },
   };
