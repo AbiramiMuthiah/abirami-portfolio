@@ -5,7 +5,6 @@ import { createServer } from "./server";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  root: "client",
 
   server: {
     host: "::",
@@ -17,7 +16,7 @@ export default defineConfig(({ mode }) => ({
   },
 
   build: {
-    outDir: "../dist",
+    outDir: "dist",
     emptyOutDir: true,
   },
 
